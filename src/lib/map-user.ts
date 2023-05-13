@@ -1,7 +1,7 @@
-import { PrismaClient } from "@prisma/client/edge";
-const prisma = new PrismaClient();
+import type { PrismaClient } from "@prisma/client/edge";
 
 export default async function mapUser(
+  prisma: PrismaClient,
   user_id: string,
   context_id: string,
   roles: string,

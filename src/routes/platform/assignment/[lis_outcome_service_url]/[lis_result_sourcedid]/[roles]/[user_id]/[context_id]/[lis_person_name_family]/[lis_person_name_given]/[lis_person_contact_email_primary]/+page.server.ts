@@ -5,8 +5,6 @@ import mapUser from "$lib/map-user";
 import { PrismaClient } from "@prisma/client/edge";
 import { elaSignature } from "$lib/oauth/ela-signature";
 import type { ElaData } from "$lib/oauth/ela-signature";
-const prisma = new PrismaClient();
-
 dotenv.config();
 
 type OutputType = {
@@ -24,8 +22,18 @@ export const load: PageServerLoad<OutputType> = async ({
   url,
   params,
   request,
+  platform,
 }) => {
+  const prisma = new PrismaClient({
+    datasources: {
+      db: {
+        url: platform?.env.DATABASE_URL,
+      },
+    },
+  });
+
   mapUser(
+    prisma,
     params.user_id,
     params.context_id,
     params.roles,
