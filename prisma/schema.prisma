@@ -12,8 +12,8 @@ generator dbml {
 // TODO: Fix prod env URL not working
 datasource db {
   provider  = "mongodb"
-  url       = ""
-  directUrl = ""
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DB_URL")
 }
 
 model Log {
