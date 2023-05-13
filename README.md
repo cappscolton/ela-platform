@@ -102,5 +102,7 @@ Clone this on your server. Use the Dockerfile, then use ngrok or a domain with y
 [Download ngrok (via wget) and run ngrok](https://dashboard.ngrok.com/get-started/setup) on your webserver port.
 
 ```bash
-ngrok http 3000
+docker build ./;
+docker run -p 127.0.0.1:80:3000 -it ela-node:latest;
+ngrok http 3000;
 ```
