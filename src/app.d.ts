@@ -3,7 +3,9 @@
 declare global {
   namespace App {
     // interface Error {}
-    // interface Locals {}
+    interface Locals {
+      auth: import("lucia-auth").AuthRequest;
+    }
     // interface PageData {}
     interface Platform {
       env: {
@@ -17,6 +19,14 @@ declare global {
       };
       caches: CacheStorage & { default: Cache };
     }
+  }
+}
+
+/// <reference types="lucia-auth" />
+declare global {
+  namespace Lucia {
+    type Auth = import("$lib/server/lucia.ts").Auth;
+    type UserAttributes = {};
   }
 }
 

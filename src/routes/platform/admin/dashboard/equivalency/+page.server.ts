@@ -11,7 +11,12 @@ type OutputType = {
   equivalencySet: { id: string; concept: string }[];
 };
 
-export const load: PageServerLoad<OutputType> = async ({ platform }) => {
+export const load: PageServerLoad<OutputType> = async ({
+  platform,
+  locals,
+}) => {
+  const { session, user } = await locals.auth.validateUser();
+
   const prisma = new PrismaClient({
     datasources: {
       db: {
