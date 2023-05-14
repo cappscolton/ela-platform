@@ -25,7 +25,7 @@ export const load: PageServerLoad<OutputType> = async ({
   const prisma = new PrismaClient({
     datasources: {
       db: {
-        url: platform?.env.DATABASE_URL,
+        url: (platform?.env.DATABASE_URL ?? process.env.DATABASE_URL) as string,
       },
     },
   });
