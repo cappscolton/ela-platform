@@ -115,6 +115,10 @@ VITE_BASE_PLATFORM_URL="http://localhost:5173" # OR NGROK URL
 VITE_DIRECT_DB_URL="mongodb+srv://......"
 ```
 
+```bash
+pnpm dev
+```
+
 [Download ngrok (via wget) and run ngrok](https://dashboard.ngrok.com/get-started/setup) on your webserver port.
 
 ```bash
