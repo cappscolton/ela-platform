@@ -1,5 +1,4 @@
-import { PrismaClient } from "@prisma/client/edge";
-const prisma = new PrismaClient();
+import type { PrismaClient } from "@prisma/client";
 
 export const MasteryFormula = {
   ThreeCCR: "3CCR",
@@ -10,6 +9,7 @@ export const MasteryFormula = {
 };
 
 async function NCCR(
+  prisma: PrismaClient,
   n: number,
   studentId: string,
   equivalencyId: string
@@ -64,31 +64,32 @@ async function NCCR(
 }
 
 export async function computeMastery(
+  prisma: PrismaClient,
   masteryFormula: string,
   equivalencyId: string,
   studentId: string
 ) {
   if (masteryFormula === MasteryFormula.FourCCR) {
-    const mastery = NCCR(4, studentId, equivalencyId);
+    const mastery = NCCR(prisma, 4, studentId, equivalencyId);
     return mastery;
   }
   if (masteryFormula === MasteryFormula.FiveCCR) {
-    const mastery = NCCR(5, studentId, equivalencyId);
+    const mastery = NCCR(prisma, 5, studentId, equivalencyId);
     return mastery;
   }
   if (masteryFormula === MasteryFormula.TugOfWar) {
     // TODO: evaluate CUSUM Tug of War and implement. For now default to 3CCR
 
-    const mastery = NCCR(3, studentId, equivalencyId);
+    const mastery = NCCR(prisma, 3, studentId, equivalencyId);
     return mastery;
   }
   if (masteryFormula === MasteryFormula.BKT) {
     // TODO: evaluate BKT and implement. For now default to 3CCR
 
-    const mastery = NCCR(3, studentId, equivalencyId);
+    const mastery = NCCR(prisma, 3, studentId, equivalencyId);
     return mastery;
   } else {
-    const mastery = NCCR(3, studentId, equivalencyId);
+    const mastery = NCCR(prisma, 3, studentId, equivalencyId);
     return mastery;
   }
 }

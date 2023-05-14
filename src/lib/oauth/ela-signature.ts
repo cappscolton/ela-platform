@@ -1,8 +1,5 @@
 import { OAuth1Signature } from "$lib/oauth/oauth1-signature";
-import { PrismaClient } from "@prisma/client/edge";
-import * as dotenv from "dotenv";
-dotenv.config();
-const prisma = new PrismaClient();
+import type { PrismaClient } from "@prisma/client/edge";
 
 export type ElaData = {
   lti: {
@@ -67,6 +64,7 @@ export type ElaData = {
 };
 
 export async function elaSignature(
+  prisma: PrismaClient,
   context_id: string,
   ltiUrl: string,
   lis_result_sourcedid: string,

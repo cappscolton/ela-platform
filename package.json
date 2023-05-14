@@ -25,6 +25,7 @@
     "eslint": "^8.40.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-svelte3": "^4.0.0",
+    "node-env-run": "^4.0.2",
     "postcss": "^8.4.23",
     "prettier": "^2.8.8",
     "prettier-plugin-svelte": "^2.10.0",
@@ -40,7 +41,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@prisma/client": "4.14.0",
+    "@prisma/client": "4.13.0",
     "@sveltejs/adapter-node": "^1.2.4",
     "axios": "^1.4.0",
     "chart.js": "^4.3.0",
