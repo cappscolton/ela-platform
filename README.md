@@ -1,4 +1,4 @@
-# ELA Platform Webapp
+# [ELA Platform Webapp](https://docs.google.com/presentation/d/191SGxjdiLePFHzSZyHJbOXER7wiJ_ubJ8gAPmltyQj8/edit?usp=sharing)
 
 ## **Project Objectives**
 
