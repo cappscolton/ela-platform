@@ -112,6 +112,7 @@ export const load: PageServerLoad<OutputType> = async ({
 
     for (const activityData of conceptActivityDatas) {
       const elaData = await elaSignature(
+        prisma,
         params.context_id,
         activityData.ltiUrl,
         params.lis_result_sourcedid,

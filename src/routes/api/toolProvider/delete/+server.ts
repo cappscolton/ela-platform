@@ -1,8 +1,15 @@
 import type { RequestHandler } from "./$types";
 import { redirect } from "@sveltejs/kit";
 import { PrismaClient } from "@prisma/client/edge";
-const prisma = new PrismaClient();
-export const POST: RequestHandler = async ({ request, params }) => {
+
+export const POST: RequestHandler = async ({ platform, request }) => {
+  const prisma = new PrismaClient({
+    datasources: {
+      db: {
+        url: platform?.env.DATABASE_URL,
+      },
+    },
+  });
   await prisma.toolProvider.delete({
     where: {
       name: (await request.formData()).get("name")!.toString(),

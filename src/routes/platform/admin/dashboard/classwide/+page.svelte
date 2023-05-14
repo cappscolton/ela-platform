@@ -2,10 +2,7 @@
   import StudentWidget from "$components/StudentWidget.svelte";
   import Line from "chart.js/auto";
   import { onMount } from "svelte";
-  import { PrismaClient } from "@prisma/client/edge";
   // import LineChart from "$components/LineChart.svelte";
-  const prisma = new PrismaClient();
-
   // function replot() {
   //   const data = [
   //     { day: "5-05", count: 0 },

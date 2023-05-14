@@ -3,13 +3,19 @@ import { MasteryFormula, computeMastery } from "$lib/mastery";
 import { gradePassback } from "$lib/grade-passback";
 import { XMLParser } from "fast-xml-parser";
 import { PrismaClient } from "@prisma/client/edge";
-const prisma = new PrismaClient();
 
 export const POST: RequestHandler = async ({
-  fetch,
+  platform,
   request,
   params,
 }: RequestEvent) => {
+  const prisma = new PrismaClient({
+    datasources: {
+      db: {
+        url: platform?.env.DATABASE_URL,
+      },
+    },
+  });
   const lti_req = await request
     .text()
     .then((str: string) => new XMLParser().parse(str));
@@ -98,6 +104,7 @@ export const POST: RequestHandler = async ({
     });
 
     const mastery = await computeMastery(
+      prisma,
       MasteryFormula.ThreeCCR,
       params.equivalencyId,
       params.user_id

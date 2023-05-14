@@ -1,9 +1,15 @@
 import type { RequestHandler } from "./$types";
 import { PrismaClient } from "@prisma/client/edge";
 import { redirect } from "@sveltejs/kit";
-const prisma = new PrismaClient();
 
-export const POST: RequestHandler = async ({ request, params }) => {
+export const POST: RequestHandler = async ({ platform, request, params }) => {
+  const prisma = new PrismaClient({
+    datasources: {
+      db: {
+        url: platform?.env.DATABASE_URL,
+      },
+    },
+  });
   const formData = Array.from((await request.formData()).entries());
 
   if (params.action == "assign") {
