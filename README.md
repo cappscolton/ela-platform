@@ -103,11 +103,11 @@ wrangler pages deployment tail --format json --project-name project-name
 
 I no longer recommend the dockerfile, unless you want to switch it to a local vite server. Node isn't properly loading env varibles for Prisma client. As of now, env variables are dynamically being fetched for Serverless or local Vite server with no code changes. Vite also has the added benefit of HMR for faster turnaround.
 
-For vite, you prefix your variables with VITE_ in .env. My .env file looks like this for dual environment compatibility:
+For vite, you prefix your variables with VITE\_ in .env. My .env file looks like this for dual environment compatibility:
 
 ```bash
 DATABASE_URL="prisma://aws-us-east-1.prisma-data.com/?api_key=......"
-BASE_PLATFORM_URL="https://serverless.ela-platform.pages.dev"
+BASE_PLATFORM_URL="https://ela-platform.pages.dev"
 DIRECT_DB_URL="mongodb+srv://......"
 
 VITE_DATABASE_URL="prisma://aws-us-east-1.prisma-data.com/?api_key=......"
