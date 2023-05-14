@@ -1,6 +1,5 @@
 import { OAuth1Signature } from "$lib/oauth/oauth1-signature";
 import type { PrismaClient } from "@prisma/client/edge";
-import * as dotenv from "dotenv";
 
 export type ElaData = {
   lti: {

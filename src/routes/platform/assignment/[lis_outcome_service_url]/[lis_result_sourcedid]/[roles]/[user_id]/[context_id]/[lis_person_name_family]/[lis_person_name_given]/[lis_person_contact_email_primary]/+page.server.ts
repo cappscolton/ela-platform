@@ -1,5 +1,4 @@
 import { OAuth1Signature } from "$lib/oauth/oauth1-signature.js";
-import * as dotenv from "dotenv";
 import type { PageServerLoad } from "./$types";
 import mapUser from "$lib/map-user";
 import { PrismaClient } from "@prisma/client/edge";
