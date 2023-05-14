@@ -89,7 +89,7 @@ npx prisma generate --data-proxy;
 Cloudflare Pages builds and deploys each commit to this repo.
 [Setup](https://kit.svelte.dev/docs/adapter-cloudflare) takes 15 minutes. 100,000 free requests / day.
 
-I use [this](https://community.cloudflare.com/t/add-pnpm-to-pre-installed-cloudflare-pages-tools/288514/5) for pnpm on Cloudflare Pages
+I use an alternative Github Actions setup. It does relatively the same thing while being freely readable.
 
 Tail Prod logs with:
 
