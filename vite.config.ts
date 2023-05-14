@@ -1,7 +1,6 @@
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
 import { createRequire } from "module";
-
 // TODO: This is a hack to fix a prisma issue that occurs in Prod (serverless edge environment)
 // https://github.com/prisma/prisma/issues/12504
 const prismaPlugin = () => {
