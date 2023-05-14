@@ -5,7 +5,6 @@ import mapUser from "$lib/map-user";
 import { PrismaClient } from "@prisma/client/edge";
 import { elaSignature } from "$lib/oauth/ela-signature";
 import type { ElaData } from "$lib/oauth/ela-signature";
-dotenv.config();
 
 type OutputType = {
   data: {
