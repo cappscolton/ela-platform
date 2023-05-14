@@ -21,6 +21,9 @@ export const load: PageServerLoad<OutputType> = async ({
   request,
   platform,
 }) => {
+  const base_platform_url =
+    platform?.env.BASE_PLATFORM_URL ?? import.meta.env.VITE_BASE_PLATFORM_URL;
+
   const prisma = new PrismaClient({
     datasources: {
       db: {
@@ -111,6 +114,7 @@ export const load: PageServerLoad<OutputType> = async ({
     for (const activityData of conceptActivityDatas) {
       const elaData = await elaSignature(
         prisma,
+        base_platform_url,
         params.context_id,
         activityData.ltiUrl,
         params.lis_result_sourcedid,

@@ -65,6 +65,7 @@ export type ElaData = {
 
 export async function elaSignature(
   prisma: PrismaClient,
+  base_platform_url: string,
   context_id: string,
   ltiUrl: string,
   lis_result_sourcedid: string,
@@ -77,8 +78,6 @@ export async function elaSignature(
   oauth_secret: string,
   oauth_key: string
 ): Promise<ElaData> {
-  const base_platform_url = process.env.BASE_PLATFORM_URL;
-
   // TODO: this really doesn't belong in this function. replace concept with equivalencyId and get it from the DB elsewhere
   const equivalency = await prisma.equivalency.findFirst({
     where: {

@@ -10,6 +10,7 @@ declare global {
         KV_CACHE: KVNamespace;
         DATABASE_URL: string;
         DIRECT_DB_URL: string;
+        BASE_PLATFORM_URL: string;
       };
       context: {
         waitUntil(promise: Promise<any>): void;
