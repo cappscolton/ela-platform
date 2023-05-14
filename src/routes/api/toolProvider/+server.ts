@@ -9,7 +9,8 @@ export const POST: RequestHandler = async ({
   const prisma = new PrismaClient({
     datasources: {
       db: {
-        url: (platform?.env.DATABASE_URL ?? process.env.DATABASE_URL) as string,,
+        url: (platform?.env.DATABASE_URL ??
+          import.meta.env.VITE_DATABASE_URL) as string,
       },
     },
   });
