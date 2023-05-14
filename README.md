@@ -99,7 +99,18 @@ wrangler pages deployment tail --format json --project-name project-name
 
 ### **Server**
 
-Clone this on your server. Use the Dockerfile, then use ngrok or a domain with your provider to make it accessible.
+~~Clone this on your server. Use the Dockerfile, then use ngrok or a domain with your provider to make it accessible.~~
+I no longer recommend the dockerfile, unless you want to switch it to a local vite server. Node isn't properly loading env varibles for Prisma client. As of now, env variables are dynamically being fetched for Serverless or local Vite server with no code changes. For vite, you prefix your variables with VITE_ in .env. My .env file looks like this for dual environment compatibility:
+
+```bash
+DATABASE_URL="prisma://aws-us-east-1.prisma-data.com/?api_key=......"
+BASE_PLATFORM_URL="https://serverless.ela-platform.pages.dev"
+DIRECT_DB_URL="mongodb+srv://......"
+
+VITE_DATABASE_URL="prisma://aws-us-east-1.prisma-data.com/?api_key=......"
+VITE_BASE_PLATFORM_URL="http://localhost:5173" # OR NGROK URL
+VITE_DIRECT_DB_URL="mongodb+srv://......"
+```
 
 [Download ngrok (via wget) and run ngrok](https://dashboard.ngrok.com/get-started/setup) on your webserver port.
 
