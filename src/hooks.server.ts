@@ -10,6 +10,11 @@ import type { Account } from "@auth/core/types";
 const handleAuth = (async (...args) => {
   const [{ event }] = args;
 
+  console.log("test env: " + event.platform?.env.DATABASE_URL);
+  console.log(
+    "test env: " + event.platform?.env.DATABASE_URL ?? config.DATABASE_URL
+  );
+
   const prisma = new PrismaClient({
     datasources: {
       db: {
