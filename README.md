@@ -1,5 +1,7 @@
 # [ELA Platform Webapp](https://docs.google.com/presentation/d/191SGxjdiLePFHzSZyHJbOXER7wiJ_ubJ8gAPmltyQj8/edit?usp=sharing)
 
+[![.github/workflows/pages-deployment.yml](https://github.com/cappscolton/ela-platform/actions/workflows/pages-deployment.yml/badge.svg)](https://github.com/cappscolton/ela-platform/actions/workflows/pages-deployment.yml)
+
 ## **Project Objectives**
 
 ### MVP
