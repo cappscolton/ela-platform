@@ -9,9 +9,9 @@ const config = {
 
   kit: {
     adapter: adapter(),
-    csrf: {
-      checkOrigin: false,
-    }, // todo: remove this
+    // csrf: {
+    //   checkOrigin: false,
+    // }, // todo: remove this
     alias: {
       $components: "src/components",
       $lib: "src/lib",
