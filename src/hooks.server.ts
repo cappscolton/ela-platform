@@ -5,6 +5,7 @@ import { PrismaClient } from "@prisma/client/edge";
 import type { Handle } from "@sveltejs/kit";
 import { config } from "$lib/config.server";
 import { sequence } from "@sveltejs/kit/hooks";
+import type { Account } from "@auth/core/types";
 
 const handleAuth = (async (...args) => {
   const [{ event }] = args;
@@ -20,7 +21,10 @@ const handleAuth = (async (...args) => {
 
   return SvelteKitAuth({
     trustHost: true,
-    adapter: PrismaAdapter(prisma),
+    adapter: {
+      ...PrismaAdapter(prisma),
+      linkAccount: ({ expires_in, ...data }) => prisma.account.create({ data })
+    },
     providers: [
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -46,3 +50,4 @@ const handleAuth = (async (...args) => {
 }) satisfies Handle;
 
 export const handle = sequence(handleAuth);
+

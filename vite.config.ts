@@ -17,6 +17,9 @@ const prismaPlugin = () => {
           ".prisma/client/edge": `${pathName}.prisma/client/edge`,
         },
       },
+      server: {
+      	port: 80
+      }
     }),
   };
 };
