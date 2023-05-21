@@ -108,9 +108,6 @@ export const load: PageServerLoad<OutputType> = async ({
   for (const concept in activitiesGroupedByConcept.concepts) {
     const conceptActivityDatas = activitiesGroupedByConcept.concepts[concept];
 
-    console.log("oauth secret", conceptActivityDatas[0].oauth_secret);
-    console.log("oauth key", conceptActivityDatas[0].oauth_key);
-
     for (const activityData of conceptActivityDatas) {
       const elaData = await elaSignature(
         prisma,

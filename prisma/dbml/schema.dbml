@@ -31,6 +31,8 @@ Table Course {
 Table Instructor {
   id String [pk]
   name String [not null]
+  user User
+  userId String [unique]
 }
 
 Table ToolProvider {
@@ -124,6 +126,7 @@ Table User {
   image String
   accounts Account [not null]
   sessions Session [not null]
+  instructor Instructor
 }
 
 Table VerificationToken {
@@ -146,6 +149,8 @@ Enum Level {
 Ref: Student.courseIds > Course.id
 
 Ref: Course.studentIds > Student.id
+
+Ref: Instructor.userId - User.id [delete: Cascade]
 
 Ref: Activity.toolProviderId > ToolProvider.id
 

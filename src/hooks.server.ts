@@ -1,12 +1,11 @@
 import { config } from "$lib/config.server";
 import Discord from "@auth/core/providers/discord";
 import { SvelteKitAuth } from "@auth/sveltekit";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import PrismaAdapter from "$lib/prisma/client";
 import { PrismaClient } from "@prisma/client/edge";
 import type { Handle } from "@sveltejs/kit";
 import { redirect } from "@sveltejs/kit";
 import { sequence } from "@sveltejs/kit/hooks";
-import type { Account } from "@auth/core/types";
 
 const handleAuth = (async (...args) => {
   const [{ event }] = args;
@@ -41,20 +40,34 @@ const handleAuth = (async (...args) => {
           name: user.name,
           email: user.email,
           image: user.image,
+          instructor: user.instructor,
         };
         event.locals.session = session;
         return session;
       },
     },
-    events: {},
+    events: {
+      async createUser(message) {
+        const instructor = await prisma.instructor.create({
+          data: {
+            name: message.user.name!,
+            userId: message.user.id,
+          },
+        });
+
+        message.user.instructor = instructor;
+      },
+    },
   })(...args);
 }) satisfies Handle;
 
 const protectedHandle = (async ({ event, resolve }) => {
-  let x = await event.locals.getSession();
-  console.log(x);
-  if (!event.locals.session && event.route.id?.includes("(protected)")) {
-    throw redirect(302, "/");
+  await event.locals.getSession();
+  if (
+    (!event.locals.session || !event.locals.session.user.instructor) &&
+    event.route.id?.includes("admin")
+  ) {
+    throw redirect(302, "/login");
   }
   return resolve(event);
 }) satisfies Handle;
