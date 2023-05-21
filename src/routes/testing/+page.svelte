@@ -3,6 +3,7 @@
   import { page } from "$app/stores";
 
   console.log($page.data.session);
+  console.log($page.data);
 </script>
 
 <h1>SvelteKit Auth Example</h1>
