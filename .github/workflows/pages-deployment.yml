@@ -14,8 +14,8 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DIRECT_DB_URL: ${{ secrets.DIRECT_DB_URL }}
-          DISCORD_CLIENT_ID: ${{ secrets.DIRECT_DB_URL }}
-          DISCORD_CLIENT_SECRET: ${{ secrets.DIRECT_DB_URL }}
+          DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
+          DISCORD_CLIENT_SECRET: ${{ secrets.DISCORD_CLIENT_SECRET }}
           AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
 
         run: npm i -g pnpm && pnpm i && npx prisma generate --data-proxy && pnpm run build
