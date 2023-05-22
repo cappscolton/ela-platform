@@ -31,8 +31,8 @@ Table Course {
 Table Instructor {
   id String [pk]
   name String [not null]
-  user User
   userId String [unique]
+  user User
 }
 
 Table ToolProvider {
@@ -150,7 +150,7 @@ Ref: Student.courseIds > Course.id
 
 Ref: Course.studentIds > Student.id
 
-Ref: Instructor.userId - User.id [delete: Cascade]
+Ref: Instructor.userId - User.id
 
 Ref: Activity.toolProviderId > ToolProvider.id
 
