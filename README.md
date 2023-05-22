@@ -101,30 +101,14 @@ wrangler pages deployment tail --format json --project-name project-name
 
 ### **Server**
 
-~~Clone this on your server. Use the Dockerfile, then use ngrok or a domain with your provider to make it accessible.~~
+The Dockerfile is currently set to a Vite server which is not suitable for production. However, it does have the added benefit of HMR. It is probably possible to switch the CMD to "node build" for production if you can source all the variables from .env correctly.
 
-I no longer recommend the dockerfile, unless you want to switch it to a local vite server. Node isn't properly loading env varibles for Prisma client. As of now, env variables are dynamically being fetched for Serverless or local Vite server with no code changes. Vite also has the added benefit of HMR for faster turnaround.
+This project does need to be hosted in order to communicate with LMS and Tool Providers. In development, I recommend using the Dockerfile then tunneling the application - but this will break some CSRF checks for the authentication setup. On a production server, you will just need to set up a domain.
 
-For vite, you prefix your variables with VITE\_ in .env. My .env file looks like this for dual environment compatibility:
-
-```bash
-DATABASE_URL="prisma://aws-us-east-1.prisma-data.com/?api_key=......"
-BASE_PLATFORM_URL="https://ela-platform.pages.dev"
-DIRECT_DB_URL="mongodb+srv://......"
-
-VITE_DATABASE_URL="prisma://aws-us-east-1.prisma-data.com/?api_key=......"
-VITE_BASE_PLATFORM_URL="http://localhost:5173" # OR NGROK URL
-VITE_DIRECT_DB_URL="mongodb+srv://......"
-```
-
-```bash
-pnpm dev
-```
-
-[Download ngrok (via wget) and run ngrok](https://dashboard.ngrok.com/get-started/setup) on your webserver port.
+Ensure you have all the necessary secrets and .env variables by filling in the .env.example file.
 
 ```bash
 docker build ./;
-docker run -p 127.0.0.1:80:3000 -it ela-node:latest;
-ngrok http 3000;
+docker run -p 127.0.0.1:80:5173 -it ela-node:latest;
+ngrok http 5173;
 ```
