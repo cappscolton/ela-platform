@@ -2,6 +2,9 @@ on: [push]
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
     permissions:
       contents: read
       deployments: write
@@ -9,7 +12,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      # Run your project's build step
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+          
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+          
+      - name: Install dependencies
+        run: pnpm i
+        
       - name: Build
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -18,12 +33,12 @@ jobs:
           DISCORD_CLIENT_SECRET: ${{ secrets.DISCORD_CLIENT_SECRET }}
           AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
 
-        run: npm i -g pnpm && pnpm i && npx prisma generate --data-proxy && pnpm run build
+        run: npx prisma generate --data-proxy && pnpm run build
       - name: Publish
         uses: cloudflare/pages-action@1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ela-platform # e.g. 'my-project'
-          directory: ./.svelte-kit/cloudflare # e.g. 'dist'
+          projectName: ela-platform
+          directory: ./.svelte-kit/cloudflare
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
