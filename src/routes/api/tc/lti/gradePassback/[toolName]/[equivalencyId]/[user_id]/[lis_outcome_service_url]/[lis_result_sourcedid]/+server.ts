@@ -3,6 +3,7 @@ import { MasteryFormula, computeMastery } from "$lib/mastery";
 import { gradePassback } from "$lib/grade-passback";
 import { XMLParser } from "fast-xml-parser";
 import { PrismaClient } from "@prisma/client/edge";
+import { config } from "$lib/config.server";
 
 export const POST: RequestHandler = async ({
   platform,
@@ -12,8 +13,7 @@ export const POST: RequestHandler = async ({
   const prisma = new PrismaClient({
     datasources: {
       db: {
-        url: (platform?.env.DATABASE_URL ??
-          import.meta.env.VITE_DATABASE_URL) as string,
+        url: (platform?.env.DATABASE_URL ?? config.DATABASE_URL) as string,
       },
     },
   });

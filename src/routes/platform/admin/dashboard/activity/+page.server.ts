@@ -1,5 +1,6 @@
 import type { PageServerLoad } from "./$types";
 import { PrismaClient } from "@prisma/client/edge";
+import { config } from "$lib/config.server";
 
 type OutputType = {
   toolProviderSet: {
@@ -12,8 +13,7 @@ export const load: PageServerLoad<OutputType> = async ({ platform }) => {
   const prisma = new PrismaClient({
     datasources: {
       db: {
-        url: (platform?.env.DATABASE_URL ??
-          import.meta.env.VITE_DATABASE_URL) as string,
+        url: (platform?.env.DATABASE_URL ?? config.DATABASE_URL) as string,
       },
     },
   });

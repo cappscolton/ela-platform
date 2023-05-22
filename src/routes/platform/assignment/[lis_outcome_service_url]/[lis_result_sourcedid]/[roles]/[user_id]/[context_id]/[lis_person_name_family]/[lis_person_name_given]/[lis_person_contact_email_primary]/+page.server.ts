@@ -3,6 +3,7 @@ import type { ElaData } from "$lib/oauth/ela-signature";
 import { elaSignature } from "$lib/oauth/ela-signature";
 import { PrismaClient } from "@prisma/client/edge";
 import type { PageServerLoad } from "./$types";
+import { config } from "$lib/config.server";
 
 type OutputType = {
   data: {
@@ -27,8 +28,7 @@ export const load: PageServerLoad<OutputType> = async ({
   const prisma = new PrismaClient({
     datasources: {
       db: {
-        url: (platform?.env.DATABASE_URL ??
-          import.meta.env.VITE_DATABASE_URL) as string,
+        url: (platform?.env.DATABASE_URL ?? config.DATABASE_URL) as string,
       },
     },
   });
@@ -107,9 +107,6 @@ export const load: PageServerLoad<OutputType> = async ({
 
   for (const concept in activitiesGroupedByConcept.concepts) {
     const conceptActivityDatas = activitiesGroupedByConcept.concepts[concept];
-
-    console.log("oauth secret", conceptActivityDatas[0].oauth_secret);
-    console.log("oauth key", conceptActivityDatas[0].oauth_key);
 
     for (const activityData of conceptActivityDatas) {
       const elaData = await elaSignature(

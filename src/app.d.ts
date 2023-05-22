@@ -3,7 +3,9 @@
 declare global {
   namespace App {
     // interface Error {}
-    // interface Locals {}
+    interface Locals {
+      session: Session | undefined;
+    }
     // interface PageData {}
     interface Platform {
       env: {
@@ -11,6 +13,9 @@ declare global {
         DATABASE_URL: string;
         DIRECT_DB_URL: string;
         BASE_PLATFORM_URL: string;
+        GITHUB_ID: string;
+        GITHUB_SECRET: string;
+        AUTH_SECRET: string;
       };
       context: {
         waitUntil(promise: Promise<any>): void;
