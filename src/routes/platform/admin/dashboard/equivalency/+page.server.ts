@@ -1,6 +1,6 @@
-import type { PageServerLoad } from "./$types";
-import { PrismaClient } from "@prisma/client/edge";
 import { config } from "$lib/config.server";
+import PrismaClientEdge from "$lib/prisma/client";
+import type { PageServerLoad } from "./$types";
 
 type OutputType = {
   activeEquivalencies: {
@@ -13,13 +13,8 @@ type OutputType = {
 };
 
 export const load: PageServerLoad<OutputType> = async ({ platform }) => {
-  const prisma = new PrismaClient({
-    datasources: {
-      db: {
-        url: platform?.env.DATABASE_URL ?? (config.DATABASE_URL as string),
-      },
-    },
-  });
+  const prisma = PrismaClientEdge(platform, config);
+
   const equivalencySet =
     (await prisma.equivalency.findMany({
       select: {

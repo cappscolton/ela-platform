@@ -1,8 +1,8 @@
 import { config } from "$lib/config.server";
+import PrismaAdapter from "$lib/prisma/adapter";
+import PrismaClientEdge from "$lib/prisma/client";
 import Discord from "@auth/core/providers/discord";
 import { SvelteKitAuth } from "@auth/sveltekit";
-import PrismaAdapter from "$lib/prisma/client";
-import { PrismaClient } from "@prisma/client/edge";
 import type { Handle } from "@sveltejs/kit";
 import { redirect } from "@sveltejs/kit";
 import { sequence } from "@sveltejs/kit/hooks";
@@ -10,14 +10,7 @@ import { sequence } from "@sveltejs/kit/hooks";
 const handleAuth = (async (...args) => {
   const [{ event }] = args;
 
-  const prisma = new PrismaClient({
-    datasources: {
-      db: {
-        url: (event.platform?.env.DATABASE_URL ??
-          config.DATABASE_URL) as string,
-      },
-    },
-  });
+  const prisma = PrismaClientEdge(event.platform, config);
 
   return SvelteKitAuth({
     trustHost: true,

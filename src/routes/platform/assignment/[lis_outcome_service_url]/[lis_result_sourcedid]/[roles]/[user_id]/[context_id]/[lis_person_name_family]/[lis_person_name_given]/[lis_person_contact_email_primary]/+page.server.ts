@@ -1,9 +1,9 @@
+import { config } from "$lib/config.server";
 import mapUser from "$lib/map-user";
 import type { ElaData } from "$lib/oauth/ela-signature";
 import { elaSignature } from "$lib/oauth/ela-signature";
-import { PrismaClient } from "@prisma/client/edge";
+import PrismaClientEdge from "$lib/prisma/client";
 import type { PageServerLoad } from "./$types";
-import { config } from "$lib/config.server";
 
 type OutputType = {
   data: {
@@ -25,13 +25,7 @@ export const load: PageServerLoad<OutputType> = async ({
   const base_platform_url =
     platform?.env.BASE_PLATFORM_URL ?? import.meta.env.VITE_BASE_PLATFORM_URL;
 
-  const prisma = new PrismaClient({
-    datasources: {
-      db: {
-        url: (platform?.env.DATABASE_URL ?? config.DATABASE_URL) as string,
-      },
-    },
-  });
+  const prisma = PrismaClientEdge(platform, config);
 
   mapUser(
     prisma,

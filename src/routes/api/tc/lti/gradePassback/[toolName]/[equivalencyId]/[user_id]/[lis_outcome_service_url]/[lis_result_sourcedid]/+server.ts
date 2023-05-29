@@ -1,22 +1,17 @@
-import type { RequestEvent, RequestHandler } from "./$types";
-import { MasteryFormula, computeMastery } from "$lib/mastery";
-import { gradePassback } from "$lib/grade-passback";
-import { XMLParser } from "fast-xml-parser";
-import { PrismaClient } from "@prisma/client/edge";
 import { config } from "$lib/config.server";
+import { gradePassback } from "$lib/grade-passback";
+import { MasteryFormula, computeMastery } from "$lib/mastery";
+import PrismaClientEdge from "$lib/prisma/client";
+import { XMLParser } from "fast-xml-parser";
+import type { RequestEvent, RequestHandler } from "./$types";
 
 export const POST: RequestHandler = async ({
   platform,
   request,
   params,
 }: RequestEvent) => {
-  const prisma = new PrismaClient({
-    datasources: {
-      db: {
-        url: (platform?.env.DATABASE_URL ?? config.DATABASE_URL) as string,
-      },
-    },
-  });
+  const prisma = PrismaClientEdge(platform, config);
+
   const lti_req = await request
     .text()
     .then((str: string) => new XMLParser().parse(str));
