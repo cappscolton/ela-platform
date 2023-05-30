@@ -8,44 +8,43 @@
   import type { PageData } from "./$types";
   export let data: PageData;
 
-  let deleteName = "";
-  let name = "";
-  let url = "";
-
-  let concept = "";
-  let deleteConcept = "";
-
-  let toolProviderName = "";
-  let oauthSecret = "";
-  let oauthKey = "";
-  let tpDeleteName = "";
+  import { superForm } from "sveltekit-superforms/client";
+  const tp = superForm(data.tpForm, {
+    delayMs: 100,
+    timeoutMs: 8000,
+    clearOnSubmit: "errors-and-message",
+    multipleSubmits: "prevent",
+  });
+  const activity = superForm(data.activityForm, {
+    delayMs: 100,
+    timeoutMs: 8000,
+    clearOnSubmit: "errors-and-message",
+    multipleSubmits: "prevent",
+  });
+  const equivalency = superForm(data.equivalencyForm, {
+    delayMs: 100,
+    timeoutMs: 8000,
+    clearOnSubmit: "errors-and-message",
+    multipleSubmits: "prevent",
+  });
 </script>
 
 <div class="flex container mx-auto">
   <div class="mx-12">
     <div class="my-12">
-      <CreateActivity {name} {url} toolProviderSet={data.toolProviderSet} />
-    </div>
-    <div class="my-12">
-      <DeleteActivity {deleteName} />
+      <CreateActivity superform={activity} />
     </div>
   </div>
 
   <div class="mx-12">
     <div class="my-12">
-      <CreateEquivalency {concept} />
-    </div>
-    <div class="my-12">
-      <DeleteEquivalency {deleteConcept} />
+      <CreateEquivalency superform={equivalency} />
     </div>
   </div>
 
   <div class="mx-12">
     <div class="my-12">
-      <CreateToolProvider name={toolProviderName} {oauthSecret} {oauthKey} />
-    </div>
-    <div class="my-12">
-      <DeleteToolProvider {tpDeleteName} />
+      <CreateToolProvider superform={tp} />
     </div>
   </div>
 </div>

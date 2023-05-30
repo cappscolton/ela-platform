@@ -1,12 +1,11 @@
 <script lang="ts">
-  export let name = "";
-  export let url = "";
-  export let toolProviderId = "";
+  export let superform;
+  const { form, errors, enhance, delayed } = superform;
   export let toolProviderSet: { id: string; name: string }[] = [];
 </script>
 
 <h1 class="text-2xl font-bold">Create Activity</h1>
-<form action="/api/activity" method="post">
+<form action="?/activity" method="post" use:enhance>
   <table class="table-auto">
     <div class="my-2 container mx-auto">
       <label>
@@ -16,7 +15,7 @@
           type="text"
           placeholder="Activity name"
           class="input input-bordered w-full max-w-xs"
-          bind:value={name}
+          bind:value={$form.name}
         />
       </label>
     </div>
@@ -29,9 +28,12 @@
           type="text"
           placeholder="LTI URL"
           class="input input-bordered w-full max-w-xs"
-          bind:value={url}
+          bind:value={$form.url}
         />
       </label>
+      {#if $errors.url}
+        <small>{$errors.url}</small>
+      {/if}
     </div>
 
     <div class="my-2 container mx-auto">
@@ -47,6 +49,9 @@
           class="input input-bordered w-full max-w-xs"
         />
       </label>
+      {#if $errors.correctnessThreshold}
+        <small>{$errors.correctnessThreshold}</small>
+      {/if}
     </div>
 
     <div class="my-2 container mx-auto">
@@ -55,7 +60,7 @@
           <span class="label-text">Tool Provider*</span>
           <select
             name="toolProviderId"
-            bind:value={toolProviderId}
+            bind:value={$form.toolProviderId}
             class="select select-bordered w-full max-w-xs"
             >\
             <option value="no" />
@@ -65,15 +70,13 @@
           </select>
         </label>
       </div>
+      {#if $errors.toolProviderId}
+        <small>{$errors.toolProviderId}</small>
+      {/if}
     </div>
   </table>
 
   <div class="my-2">
-    <input
-      type="submit"
-      class="btn btn-primary"
-      value="Create Activity"
-      disabled={name == "" || url == "" || toolProviderId == ""}
-    />
+    <input type="submit" class="btn btn-primary" value="Create Activity" />
   </div>
 </form>
