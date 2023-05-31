@@ -2,9 +2,10 @@
   export let superform;
   const { form, errors, enhance, delayed } = superform;
   export let toolProviderSet: { id: string; name: string }[] = [];
+  export let action = "Create";
 </script>
 
-<h1 class="text-2xl font-bold">Create Activity</h1>
+<h1 class="text-2xl font-bold">{action} Activity</h1>
 <form action="?/activity" method="post" use:enhance>
   <table class="table-auto">
     <div class="my-2 container mx-auto">
@@ -28,11 +29,11 @@
           type="text"
           placeholder="LTI URL"
           class="input input-bordered w-full max-w-xs"
-          bind:value={$form.url}
+          bind:value={$form.ltiUrl}
         />
       </label>
-      {#if $errors.url}
-        <small>{$errors.url}</small>
+      {#if $errors.ltiUrl}
+        <small>{$errors.ltiUrl}</small>
       {/if}
     </div>
 
@@ -77,6 +78,21 @@
   </table>
 
   <div class="my-2">
-    <input type="submit" class="btn btn-primary" value="Create Activity" />
+    <input type="submit" class="btn btn-primary" value="{action} Activity" />
   </div>
+  {#if action === "Modify"}
+    <input type="hidden" name="id" value={$form.id} />
+    <form action="?/deleteActivity" method="post">
+      <input type="hidden" name="id" value={$form.id} />
+      <input type="hidden" name="toolProviderId" value={$form.toolProviderId} />
+      <input type="hidden" name="ltiUrl" value={$form.ltiUrl} />
+      <input type="hidden" name="name" value={$form.name} />
+      <input
+        type="hidden"
+        name="correctnessThreshold"
+        value={$form.correctnessThreshold}
+      />
+      <input type="submit" class="btn btn-primary" value="Delete Activity" />
+    </form>
+  {/if}
 </form>

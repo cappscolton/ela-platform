@@ -24,7 +24,7 @@ const tpSchema = z.object({
 const activitySchema = z.object({
   name: z.string().trim().min(1),
   correctnessThreshold: z.number().min(0).max(100),
-  url: z.string().trim().min(1),
+  ltiUrl: z.string().trim().min(1),
   toolProviderId: z.string().min(1),
 });
 
@@ -83,7 +83,7 @@ export const actions = {
     await prisma.activity.create({
       data: {
         equivalencyId: null,
-        ltiUrl: form.data.url,
+        ltiUrl: form.data.ltiUrl,
         correctnessThreshold: form.data.correctnessThreshold,
         name: form.data.name,
         toolProviderId: form.data.toolProviderId,

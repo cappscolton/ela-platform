@@ -65,7 +65,7 @@
       <li>
         <a href="/platform/admin/dashboard/equivalency">Equivalencies</a>
       </li>
-      <li><a href="/platform/admin/dashboard/activity">Activities</a></li>
+      <li><a href="/platform/admin/dashboard/create">Create</a></li>
       <li><a href="/login">Login</a></li>
     </ul>
   </div>

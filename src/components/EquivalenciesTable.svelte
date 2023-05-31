@@ -24,7 +24,11 @@
             <tr>
               <!-- <label class="label cursor-pointer"> -->
               <th />
-              <td>{activity.name}</td>
+              <td>
+                <a href="/platform/admin/dashboard/modify/{activity.id}">
+                  {activity.name}
+                </a>
+              </td>
               <td />
               <td>
                 <EquivalencySelection
@@ -34,23 +38,23 @@
               </td>
             </tr>
           {/each}
+
+          <tr>
+            <th />
+            <td
+              ><div class="">
+                <input
+                  type="submit"
+                  class="m-2 btn btn-primary"
+                  value="{action} Equivalencies"
+                />
+              </div></td
+            >
+            <td />
+            <td />
+          </tr>
         </tbody>
       </table>
-    </div>
-    <div class="">
-      <!-- <input
-        class="m-2 input input-bordered"
-        type="text"
-        placeholder="Concept*"
-        readonly={action == "remove"}
-        bind:value={concept}
-      /> -->
-
-      <input
-        type="submit"
-        class="m-2 btn btn-primary"
-        value="{action} Equivalencies"
-      />
     </div>
   </form>
 </div>
